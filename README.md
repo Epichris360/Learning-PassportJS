@@ -1,5 +1,5 @@
 # Learning-PassportJS
 Learning to use PassportJS, for user management. following this tutorial https://scotch.io/tutorials/easy-node-authentication-setup-and-local
 
-I'm learning this know because before I was using Turbo360.co for this along with storage etc. It was amazing, but i need to 
-learn to do this all manually, that being user managment, using mongo/mongoose etc.
+My reason for learning Passport at this stage is because
+I have been using Turbo360.co for user management and storage among other things. It makes everything super easy, but i want to learn to set everything from the ground up.
