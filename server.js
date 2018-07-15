@@ -15,7 +15,7 @@ const config = require('./config/database.js');
 // configuration=================================================================
 //mongoose.connect(config.url); // connect our database
 
-// require('./config/passport.js')(passport); // pass passport for configuration
+require('./config/passport.js')(passport); // pass passport for configuration
 
 // set up our express application
 app.use(morgan('dev')); // log every request to the console
