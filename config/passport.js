@@ -1,10 +1,10 @@
 // Config/passport.js
 
 // Load all the things we need
-let LocalStrategy = require('passport-local').Strategy;
+var LocalStrategy = require('passport-local').Strategy;
 
 // Load up the user model
-let User = require('../app/models/user');
+var User = require('../app/models/user');
 
 // Expose this function to our app using module.exports
 module.exports = function(passport){
@@ -47,13 +47,16 @@ module.exports = function(passport){
 
         User.findOne({'local.email':email},function(err, user){
           // if there are any errors, return them
-          if(err)
+          if(err){
+            console.log('err: '+err);
             return done(err);
+          }
 
           // check to see if theres already a user with that email
           if(user){
             return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
           }else{
+            console.log('signing user up now!')
             // If there is no user with that email
             // create the user
             let newUser = new User();
