@@ -1,8 +1,9 @@
 // Config/passport.js
 
 // Load all the things we need
-let LocalStrategy    = require('passport-local').Strategy;
+let LocalStrategy    = require('passport-local'   ).Strategy;
 let FacebookStrategy = require('passport-facebook').Strategy;
+let TwitterStrategy  = require('passport-twitter' ).Strategy;
 
 // Load up the user model
 let User = require('../app/models/user');
@@ -159,6 +160,45 @@ module.exports = function(passport){
         });
     }));
 
+    //=============================================================
+    // TWITTER=====================================================
+    //=============================================================
+    passport.use(new TwitterStrategy({
+        consumerKey:    configAuth.twitterAuth.consumerKey,
+        consumerSecret: configAuth.twitterAuth.consumerSecret,
+        callbackURL:    configAuth.twitterAuth.callbackURL
+    },
+    function(token, tokenSecret, profile, done){
+      // make the code asynchronous
+      // User.findOne won't fire until we have all our data back from Twitter
+      process.nextTick(function(){
+        User.findOne({'twitter.id': profile.id}, function(err, user){
+          // if there is an error, stop everything and return that
+          // ie an error connecting to the database
+          console.log('profile: ',profile);
+          if (err)
+            return done(err);
+          // if the user is found then log them in
+          if(user){
+            return done(null, user);// user found, return that user
+          }else{
+            // if there is no user, create them
+            let newUser                 = new User();
+            newUser.twitter.id          = profile.id;
+            newUser.twitter.token       = token;
+            newUser.twitter.username    = profile.username;
+            newUser.twitter.displayName = profile.displayName;
+            // save our user into the database
+            newUser.save(function(err){
+              if(err)
+                throw err;
+              return done(null, newUser);
+            });
+          }
+        });
+      });
+    }
+    ));
 
 
 }

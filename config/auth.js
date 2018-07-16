@@ -12,9 +12,9 @@
      },
 
      'twitterAuth' : {
-         'consumerKey'       : 'your-consumer-key-here',
-         'consumerSecret'    : 'your-client-secret-here',
-         'callbackURL'       : 'http://localhost:3000/auth/twitter/callback'
+         'consumerKey'       : 'my1QuIAIuqhxEBYd5rXtHPLWA',
+         'consumerSecret'    : 'u907BvQms54S7HVO1bD6d98itcbobSDK7fLQcB8ubs7yMxxw93',
+         'callbackURL'       : 'http://127.0.0.1:3000/auth/twitter/callback'
      },
 
      'googleAuth' : {
