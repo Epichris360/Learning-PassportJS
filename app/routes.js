@@ -75,6 +75,11 @@ module.exports = (app, passport) => {
     res.redirect('/');
     return
   });
+
+  app.get('/privacy', (req, res) => {
+    res.render('privacy.ejs');
+    return;
+  })
 }
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next){

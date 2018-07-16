@@ -125,6 +125,7 @@ module.exports = function(passport){
     function(token, refreshToken, profile, done){
       // asynchronous
       process.nextTick(function(){
+        console.log( 'profile: '+ JSON.stringify(profile) );
         // find the user in the database based on their facebook id
         User.findOne({'facebook.id':profile.id}, function(err, user){
           // If there is an error, stop everything and return that
@@ -137,10 +138,9 @@ module.exports = function(passport){
           }else{
             // if there is no user found with that facebook id, create them
             let newUser = new User();
-            console.log( 'profile: '+profile);
             newUser.facebook.id    = profile.id; // set the users facebook id
             newUser.facebook.token = token;// we will save the token that facebook provides to the user
-            newUser.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;// look at the passport user profile to see how names are returned
+            newUser.facebook.name  = profile.displayName;// look at the passport user profile to see how names are returned
             newUser.facebook.email = profile.emails[0].value;// facebook can return multiple emails
 
             // save our user to the database
@@ -155,4 +155,7 @@ module.exports = function(passport){
       });
     }
   ));
+
+
+
 }
