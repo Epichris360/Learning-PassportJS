@@ -9,4 +9,8 @@ I have been using Turbo360.co for user management and storage among other things
 
 when trying to do anything with twitter. use 127.0.0.1:portNumber
 instead of localhost:portNumber. This is based a restriction on twitters side. Else
-you'll get an error. 
+you'll get an error.
+
+
+# Link to tutorial
+https://scotch.io/tutorials/easy-node-authentication-setup-and-local
