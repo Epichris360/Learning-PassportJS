@@ -155,11 +155,6 @@ module.exports = (app, passport) => {
     })
   })
 
-  app.get('/session', (req, res) => {
-    const user = req.user;
-    res.status(200).json({user});
-    return;
-  });
 }
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next){
