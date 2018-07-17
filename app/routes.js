@@ -5,7 +5,8 @@ module.exports = (app, passport) => {
   // Home Page (with login links)====
   //=================================
   app.get('/',(req, res) => {
-    res.render('index.ejs');
+    const user = req.user;
+    res.render('index.ejs', {user});
     return;
   });
   //=================================
@@ -50,7 +51,11 @@ module.exports = (app, passport) => {
   // we will use route middleware to verify this (the isLoggedIn function)
 
   app.get('/profile', (req, res) => {
-    res.render('profile.ejs',{user: req.user}); //get the user out of session and pass to template
+    if(typeof req.user == "undefined"){
+      res.redirect('/');
+    }else{
+      res.render('profile.ejs',{user: req.user}); //get the user out of session and pass to template
+    }
     return;
   })
 
@@ -149,6 +154,12 @@ module.exports = (app, passport) => {
       res.redirect('/profile');
     })
   })
+
+  app.get('/session', (req, res) => {
+    const user = req.user;
+    res.status(200).json({user});
+    return;
+  });
 }
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next){
